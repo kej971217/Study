@@ -39,6 +39,6 @@ public class MemberInsert extends HttpServlet {
 		
 		int id = service.memberInsert(memberVO);
 		
-		request.setAttribute("value", );
+//		request.setAttribute("value", );
 	}
 }
