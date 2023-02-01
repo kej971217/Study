@@ -2,24 +2,38 @@
 <!DOCTYPE sqlMap
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="mymember">
-	
-	<select id="memberList" resultClass="MemberVO">
-		select * from mymember
+<sqlMap namespace="member">
+
+	<select id="getMemberCount" resultClass="int">
+		SELECT COUNT(*) FROM MYMEMBER 
 	</select>
 	
-	<select id="memberDetail" resultClass="MemberVO" parameterClass="String">
-		select * from mymember where mem_id=#memid#
+	<select id="getMemberList" resultClass="memberVo">
+		SELECT MEM_ID, MEM_PASS, MEM_NAME, MEM_TEL, MEM_ADDR, MEM_PHOTO 
+			FROM MYMEMBER
 	</select>
 	
-	<insert id="memberInsert" parameterClass="MemberVO">
-		insert into mymember(mem_id, mem_pass, mem_name, mem_tel, mem_addr, mem_photo)
-		values(#mem_id#, #mem_pass#, #mem_name#, #mem_tel#, #mem_addr#, #mem_photo#)
+	<insert id="insertMember" parameterClass="memberVo">
+		INSERT INTO MYMEMBER(MEM_ID, MEM_PASS, MEM_NAME, MEM_TEL, MEM_ADDR, MEM_PHOTO) 
+		VALUES (#mem_id#, #mem_pass#, #mem_name#, #mem_tel#, #mem_addr#, #mem_photo#)
 	</insert>
+	 
+	<delete id="deleteMember" parameterClass="String">
+		DELETE FROM MYMEMBER 
+			WHERE MEM_ID=#mem_id#
+	</delete>
 	
-	<update id="memberUpdate" parameterClass="MemberVO">
-		update mymember set(mem_pass=#mem_pass#, mem_name=#mem_name#, 
-							mem_tel=#mem_tel#, mem_addr=#mem_addr#, mem_photo=#mem_photo#)
-		where mem_id=#mem_id#
+	<update id="updateMember" parameterClass="memberVo">
+		UPDATE MYMEMBER 
+			SET MEM_NAME=#mem_name#, MEM_PASS=#mem_pass#, MEM_TEL=#mem_tel#, MEM_ADDR=#mem_addr#, MEM_PHOTO=#mem_photo# 
+		WHERE MEM_ID=#mem_id#
 	</update>
-</sqlMap>	
+	
+	<select id="getMember" parameterClass="String" resultClass="memberVo">
+		SELECT * FROM MYMEMBER 
+			WHERE MEM_ID = #mem_id#
+	</select>
+
+</sqlMap>
+
+	
